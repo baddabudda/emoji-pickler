@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "build-pages": "vite build --outDir github-pages",
+    "build-pages": "vite build --outDir github-pages --base /emoji-pickler",
     "preview": "vite preview"
   },
   "dependencies": {
