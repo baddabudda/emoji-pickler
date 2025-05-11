@@ -13,7 +13,7 @@ const items = computed(() => {
 <template>
   <div class="header">
     <div class="name">
-      Emoji picker!
+      Emoji pickler!
     </div>
     <div class="description">
       A place where you find emoji
@@ -32,6 +32,7 @@ const items = computed(() => {
 <style scoped>
 .header {
   text-align: center;
+  word-wrap: break-word;
 }
 
 .name {
@@ -55,7 +56,7 @@ const items = computed(() => {
   outline: none;
 }
 .emoji-list {
-  width: 70vw;
+  max-width: 64rem;
   margin: auto;
   border-color: gray;
   border-style: solid;

@@ -32,11 +32,11 @@ async function copyToClipboard(value, caller) {
 
 <template>
     <div class="card-container">
-        <div class="emoji">{{ emoji.emoji + '\u{fe0f}' }}</div>
-        <div class="shortname">{{ emoji.name.toLowerCase() }}</div>
+        <div class="emoji" @click="handleEmoji">{{ emoji.emoji + '\u{fe0f}' }}</div>
+        <div class="shortname ">{{ emoji.name.toLowerCase() }}</div>
         <div class="actions">
-            <button class="button-copy copy-emoji" @click="handleEmoji">{{ emojiButtonStatus }}</button>
-            <button class="button-copy copy-unicode" @click="handleUnicode">{{ unicodeButtonStatus }}</button>
+            <button class="button-copy copy-emoji hide-on-mobile" @click="handleEmoji">{{ emojiButtonStatus }}</button>
+            <button class="button-copy copy-unicode hide-on-mobile" @click="handleUnicode">{{ unicodeButtonStatus }}</button>
         </div>
     </div>
 </template>
@@ -46,7 +46,6 @@ async function copyToClipboard(value, caller) {
     display: flex;
     flex-direction: row;
     align-items: center;
-    flex-wrap: wrap;
     gap: 1.5em;
     padding: 1em 1em;
     border-bottom: 1px solid gray;
@@ -54,21 +53,21 @@ async function copyToClipboard(value, caller) {
 }
 
 .emoji {
-    flex: 1 0 5%;
     width: 50px;
     font-family: 'Noto Sans', sans-serif;
     font-size: 2.5rem;
     text-align: center;
+    user-select: none;
+    cursor: pointer;
 }
 
 .shortname {
-    flex: 1 0 50%;
+    flex: 1 0;
     font-size: 1.5rem;
     text-align: start;
 }
 
 .actions {
-    flex: 1 1 40%;
     margin: auto;
     display: flex;
     flex-direction: row;
@@ -77,12 +76,15 @@ async function copyToClipboard(value, caller) {
 }
 
 .button-copy {
-    width: 150px;
+    max-width: 150px;
     font-size: 1.5rem;
     padding: 0.5rem 1rem;
 }
 
-.copy-emoji {
-    margin-left: auto;
+@media (max-width: 600px) {
+  .hide-on-mobile {
+    display: none;
+  }
 }
+
 </style>
