@@ -6,6 +6,7 @@ const props = defineProps({
 
 const emojiButtonStatus = ref("Emoji")
 const unicodeButtonStatus = ref("Unicode")
+const highlighted = ref(false)
 
 const actionButtonMessages = {
     "emoji": emojiButtonStatus,
@@ -22,18 +23,22 @@ function handleUnicode() {
 
 async function copyToClipboard(value, caller) {
     let defaultMessage = actionButtonMessages[caller].value
+    highlighted.value = true
     actionButtonMessages[caller].value = "Ok!"
 
     await navigator.clipboard.writeText(value)
 
-    setTimeout(() => { actionButtonMessages[caller].value = defaultMessage}, 1000)
+    setTimeout(() => { 
+        actionButtonMessages[caller].value = defaultMessage 
+        highlighted.value = false
+    }, 800)
 }
 </script>
 
 <template>
-    <div class="card-container">
+    <div class="card-container" :class="{ highlight: highlighted }">
         <div class="emoji" @click="handleEmoji">{{ emoji.emoji + '\u{fe0f}' }}</div>
-        <div class="shortname ">{{ emoji.name.toLowerCase() }}</div>
+        <div class="shortname">{{ emoji.name.toLowerCase() }}</div>
         <div class="actions">
             <button class="button-copy copy-emoji hide-on-mobile" @click="handleEmoji">{{ emojiButtonStatus }}</button>
             <button class="button-copy copy-unicode hide-on-mobile" @click="handleUnicode">{{ unicodeButtonStatus }}</button>
@@ -87,4 +92,17 @@ async function copyToClipboard(value, caller) {
   }
 }
 
+.highlight {
+    animation: on-selected 1s;
+}
+
+@keyframes on-selected {
+    0% {
+        background-color: #585858;
+    }
+
+    100% {
+        background-color: inherit;
+    }
+}
 </style>
